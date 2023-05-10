@@ -14,10 +14,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <Error />,
     children: [
-      { index: true, element: <Navigate to="/1" replace /> },
+      { index: true, element: <Navigate to="/pages/1" replace /> },
       {
         id: "pages",
-        path: "/:page",
+        path: "/pages/:page",
         element: <Home />,
         loader: mainLoader,
       },

@@ -6,7 +6,7 @@ function MainHeading() {
   return (
     <header className={classes.header}>
       <div className="container">
-        <h1 onClick={() => navigate("/1")} className={classes.title}>
+        <h1 onClick={() => navigate("/pages/1")} className={classes.title}>
           Rick & Morty Characters
         </h1>
       </div>

@@ -10,7 +10,7 @@ function Pagination({ page }) {
   page *= 1;
   if (isNaN(page)) page = 1;
   pages *= 1;
-  const goTo = (e) => navigate(`/${e.target.textContent}`);
+  const goTo = (e) => navigate(`/pages/${e.target.textContent}`);
   if (page < pages - 4) {
     pageBtns = (
       <>
@@ -35,12 +35,15 @@ function Pagination({ page }) {
 
   return (
     <div className={classes.btns}>
-      <button onClick={() => navigate(`/${page - 1}`)} disabled={page === 1}>
+      <button
+        onClick={() => navigate(`/pages/${page - 1}`)}
+        disabled={page === 1}
+      >
         PREV
       </button>
       {pageBtns}
       <button
-        onClick={() => navigate(`/${page + 1}`)}
+        onClick={() => navigate(`/pages/${page + 1}`)}
         disabled={page === pages}
       >
         NEXT

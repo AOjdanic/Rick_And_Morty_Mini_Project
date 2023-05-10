@@ -8,7 +8,7 @@ function Error() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => navigate("/1"), 2000);
+    setTimeout(() => navigate("/pages/1"), 2000);
   });
 
   let title = "⚠️Something went wrong!\n Please try again later 😊";
