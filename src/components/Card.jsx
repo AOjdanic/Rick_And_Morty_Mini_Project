@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import classes from "./Card.module.scss";
 
 function Card({
@@ -32,9 +32,12 @@ function Card({
         </div>
       </div>
       <div className={`${classes.card_side} ${classes.card_side_back}`}>
-        <Link to={`/${id}`}>
-          <button className={classes.btn_back}>More info</button>
-        </Link>
+        <button
+          onClick={() => redirect(`/character/${id}`)}
+          className={classes.btn_back}
+        >
+          More info
+        </button>
       </div>
     </div>
   );

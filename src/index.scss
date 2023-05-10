@@ -31,4 +31,8 @@ body {
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   gap: 6rem;
+  margin-bottom: 9.6rem;
+  // & > .card:last-child {
+  //   grid-column: -1/-2;
+  // }
 }

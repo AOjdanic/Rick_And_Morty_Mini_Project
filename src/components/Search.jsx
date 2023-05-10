@@ -41,7 +41,7 @@ function Search() {
           {characters &&
             characters !== "404" &&
             characters.slice(0, 10).map((char) => (
-              <Link key={char.id} to={`/${char.id}`}>
+              <Link key={char.id} to={`/character/${char.id}`}>
                 <SearchResult props={char} />
               </Link>
             ))}
