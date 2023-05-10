@@ -22,7 +22,7 @@ html {
 
 body {
   background: linear-gradient(to right, #0f172a9e, #0f172a9e),
-    url("https://images8.alphacoders.com/625/625910.png") no-repeat center fixed;
+    url("./assets/625910.png") no-repeat center fixed;
   background-size: cover;
 }
 
@@ -32,7 +32,7 @@ body {
   justify-items: center;
   gap: 6rem;
   margin-bottom: 9.6rem;
-  // & > .card:last-child {
-  //   grid-column: -1/-2;
-  // }
+  & > *:last-child {
+    grid-column: -1/-2;
+  }
 }

@@ -5,8 +5,10 @@
   height: 52.5rem;
   width: 35rem;
   &_side {
-    height: 52.5rem;
-    width: 35rem;
+    // height: 52.5rem;
+    // width: 35rem;
+    height: 100%;
+    width: 100%;
     transition: all 0.8s ease;
     position: absolute;
     top: 0;

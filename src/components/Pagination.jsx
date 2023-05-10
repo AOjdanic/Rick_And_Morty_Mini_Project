@@ -8,6 +8,7 @@ function Pagination({ page }) {
   let { pages } = info;
   let pageBtns;
   page *= 1;
+  if (isNaN(page)) page = 1;
   pages *= 1;
   const goTo = (e) => navigate(`/${e.target.textContent}`);
   if (page < pages - 4) {

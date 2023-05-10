@@ -5,16 +5,27 @@ import {
 } from "react-router-dom";
 import Root from "./pages/Root";
 import Home, { loader as mainLoader } from "./pages/Home";
-import Details from "./pages/Details";
+import Details, { loader as detailsLoader } from "./pages/Details";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <Navigate to="/1" replace /> },
-      { id: "pages", path: "/:page", element: <Home />, loader: mainLoader },
-      { path: "/character/:id", element: <Details /> },
+      {
+        id: "pages",
+        path: "/:page",
+        element: <Home />,
+        loader: mainLoader,
+      },
+      {
+        path: "/character/:id",
+        element: <Details />,
+        loader: detailsLoader,
+      },
     ],
   },
 ]);

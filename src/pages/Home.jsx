@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 
-//responsive design, errors, errorpage, details page,fix image responsiveness
+//responsive design,fix image responsiveness
 
 function Home() {
   const { page } = useParams();
@@ -29,9 +29,17 @@ export default Home;
 
 export async function loader({ params }) {
   let { page } = params;
+
+  if (page < 1 || page > 42)
+    throw new Error("⚠️The page you requested doesn't exist!");
+
   const res = await fetch(
     `https://rickandmortyapi.com/api/character/?page=${page ? page : "1"}`
   );
+
+  if (!res.ok)
+    throw new Error("⚠️Error getting characters data! Please try again 😊");
+
   const { results, info } = await res.json();
   return [results, info];
 }
