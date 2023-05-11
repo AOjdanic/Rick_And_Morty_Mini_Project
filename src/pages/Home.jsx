@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 
-//responsive design,fix image responsiveness
-
 function Home() {
   const { page } = useParams();
   const [results] = useLoaderData();
