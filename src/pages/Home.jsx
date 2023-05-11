@@ -10,6 +10,7 @@ import Pagination from "../components/Pagination";
 function Home() {
   const { page } = useParams();
   const [results] = useLoaderData();
+
   return (
     <>
       <Search />
@@ -30,7 +31,7 @@ export default Home;
 export async function loader({ params }) {
   let { page } = params;
 
-  if (page < 1 || page > 42)
+  if (page < 1 || page > 42 || isNaN(page))
     throw new Error("⚠️The page you requested doesn't exist!");
 
   const res = await fetch(

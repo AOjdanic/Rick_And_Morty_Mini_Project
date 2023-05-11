@@ -1,11 +1,14 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import classes from "./Search.module.scss";
 import SearchResult from "./SearchResult";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SearchResultsContext from "../context/search-context";
 
 function Search() {
   const [characters, setCharacters] = useState([]);
   const [query, setQuery] = useState("");
+  const { setSearchResults } = useContext(SearchResultsContext);
+  let navigate = useNavigate();
 
   const getCharactersByName = useCallback(async () => {
     if (query === "") return;
@@ -27,9 +30,20 @@ function Search() {
     return () => clearTimeout(timer);
   }, [query, getCharactersByName]);
 
+  const displayAllCharacters = (e) => {
+    if (e.key === "Enter") {
+      if (query === "") return;
+      if (characters === "404") return;
+      setSearchResults(characters);
+      navigate(`/character/search-results/${query}`);
+      setQuery("");
+    }
+  };
+
   return (
     <div className={classes["search-wrapper"]}>
       <input
+        onKeyDown={displayAllCharacters}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className={classes.search}

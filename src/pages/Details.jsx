@@ -54,7 +54,11 @@ export default Details;
 
 export async function loader({ params }) {
   const { id } = params;
+  if (id < 1 || id > 826 || isNaN(id))
+    throw new Error("⚠️No character under that id! Please try again");
+
   const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+
   if (!res.ok)
     throw new Error("⚠️Error getting character details! Please try again 😊");
 
