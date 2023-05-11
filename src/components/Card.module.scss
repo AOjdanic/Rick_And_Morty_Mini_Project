@@ -16,9 +16,9 @@
     backface-visibility: hidden;
     border-radius: 11px;
     overflow: hidden;
-    box-shadow: 0 0 2rem #94a3b8;
+    box-shadow: 0 0 2rem var(--main-400);
     &_front {
-      background-color: #334155;
+      background-color: var(--main-700);
     }
 
     &_back {
@@ -32,20 +32,20 @@
         font-size: 3rem;
         padding: 1rem 2rem;
         border-radius: 1000rem;
-        box-shadow: 0 0 2rem #94a3b8;
+        box-shadow: 0 0 2rem var(--main-400);
         cursor: pointer;
-        color: #f8fafc;
-        background-color: #0f172a;
-        border-color: #0f172a;
+        color: var(--main-50);
+        background-color: var(--main-900);
+        border-color: var(--main-900);
         font-weight: 600;
         letter-spacing: 1.5px;
         transition: all 0.3s;
 
         &:hover {
-          background-color: #94a3b8;
-          box-shadow: 0 0 4rem #f8fafc;
-          border-color: #94a3b8;
-          color: #0f172a;
+          background-color: var(--main-400);
+          box-shadow: 0 0 4rem var(--main-50);
+          border-color: var(--main-400);
+          color: var(--main-900);
         }
       }
     }
@@ -69,8 +69,8 @@ a {
   font-size: 2rem;
   padding: 0.5rem 5rem;
   font-weight: 600;
-  background-color: #020617;
-  color: #f8fafc;
+  background-color: var(--main-950);
+  color: var(--main-50);
   letter-spacing: 1.5px;
   rotate: 45deg;
   top: 2.5%;
@@ -83,8 +83,8 @@ a {
     font-size: 2rem;
     padding: 0.5rem 5rem;
     font-weight: 600;
-    background-color: #020617;
-    color: #f8fafc;
+    background-color: var(--main-950);
+    color: var(--main-50);
     letter-spacing: 1.5px;
     rotate: 45deg;
     top: 5%;
@@ -100,7 +100,7 @@ a {
 }
 .card-text-box {
   height: 25%;
-  color: #f8fafc;
+  color: var(--main-50);
   padding: 0 1rem;
 }
 .name {

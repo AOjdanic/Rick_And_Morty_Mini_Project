@@ -2,7 +2,7 @@
   margin: 4.8rem 0;
   padding: 4.8rem 1.2rem;
   background-color: #f1f5f965;
-  color: #020617;
+  color: var(--main-950);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,7 @@
     & > img {
       height: 100%;
       width: 100%;
-      border: 3px solid #020617;
+      border: 3px solid var(--main-950);
       border-radius: 11px;
     }
 

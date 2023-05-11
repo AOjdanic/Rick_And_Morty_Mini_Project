@@ -3,12 +3,13 @@
   align-items: center;
   height: 9.6rem;
   padding: 0 4.8rem;
-  background-color: #020617;
+  background-color: var(--main-950);
+
   opacity: 80%;
 }
 
 .title {
-  color: #f8fafc;
+  color: var(--main-50);
   font-size: 3.6rem;
   cursor: pointer;
 }
