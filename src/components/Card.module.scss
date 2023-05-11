@@ -57,6 +57,11 @@
   &:hover &_side_back {
     transform: rotateY(0);
   }
+
+  @media screen and (max-width: 390px) {
+    width: 30rem;
+    height: 45rem;
+  }
 }
 a {
   text-decoration: none;
@@ -105,8 +110,14 @@ a {
 }
 .name {
   font-size: 3rem;
+  @media screen and (max-width: 390px) {
+    font-size: 2.4rem;
+  }
 }
 
 .location {
   font-size: 2.4rem;
+  @media screen and (max-width: 390px) {
+    font-size: 2rem;
+  }
 }

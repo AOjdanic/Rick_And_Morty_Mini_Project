@@ -30,6 +30,9 @@ html {
   max-width: 120rem;
   margin: 0 auto;
   padding: 0 2rem;
+  @media screen and (max-width: 390px) {
+    padding: 0rem 1rem;
+  }
 }
 
 body {
@@ -46,5 +49,16 @@ body {
   margin-bottom: 9.6rem;
   & > *:last-child {
     grid-column: -1/-2;
+  }
+
+  @media screen and (max-width: 1440px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    row-gap: 5rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    row-gap: 3rem;
   }
 }
