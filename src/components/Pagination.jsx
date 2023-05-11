@@ -12,25 +12,46 @@ function Pagination({ page }) {
   pages *= 1;
   const goTo = (e) => navigate(`/pages/${e.target.textContent}`);
   if (page < pages - 4) {
-    pageBtns = (
-      <>
-        <button>{page}</button>
-        <button onClick={goTo}>{page + 1}</button>
-        <button>...</button>
-        <button onClick={goTo}>{pages - 1}</button>
-        <button onClick={goTo}>{pages}</button>
-      </>
-    );
+    pageBtns = [page - 1, page, page + 1, pages - 1, pages - 2].map((i) => {
+      if (i === 0) return;
+      if (i === page) {
+        return (
+          <button
+            style={{ boxShadow: "inset 0 0 2rem #cbd5e1" }}
+            key={i}
+            onClick={goTo}
+          >
+            {i}
+          </button>
+        );
+      } else {
+        return (
+          <button key={i} onClick={goTo}>
+            {i}
+          </button>
+        );
+      }
+    });
   } else {
-    pageBtns = (
-      <>
-        <button onClick={goTo}>{pages - 4}</button>
-        <button onClick={goTo}>{pages - 3}</button>
-        <button onClick={goTo}>{pages - 2}</button>
-        <button onClick={goTo}>{pages - 1}</button>
-        <button onClick={goTo}>{pages}</button>
-      </>
-    );
+    pageBtns = [4, 3, 2, 1, 0].map((i) => {
+      if (page === pages - i) {
+        return (
+          <button
+            style={{ boxShadow: "inset 0 0 2rem #cbd5e1" }}
+            key={i}
+            onClick={goTo}
+          >
+            {pages - i}
+          </button>
+        );
+      } else {
+        return (
+          <button key={i} onClick={goTo}>
+            {pages - i}
+          </button>
+        );
+      }
+    });
   }
 
   return (

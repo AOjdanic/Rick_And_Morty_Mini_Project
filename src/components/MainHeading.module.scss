@@ -12,7 +12,11 @@
   color: var(--main-50);
   font-size: 3.6rem;
   cursor: pointer;
+  @media screen and (max-width: 550px) {
+    line-height: 1.1;
+  }
   @media screen and (max-width: 390px) {
     font-size: 2.4rem;
+    line-height: 1.3;
   }
 }
