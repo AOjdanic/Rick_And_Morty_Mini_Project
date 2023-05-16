@@ -12,7 +12,7 @@ function Pagination({ page }) {
   pages *= 1;
   const goTo = (e) => navigate(`/pages/${e.target.textContent}`);
   if (page < pages - 4) {
-    pageBtns = [page - 1, page, page + 1, pages - 1, pages - 2].map((i) => {
+    pageBtns = [page - 1, page, page + 1, pages - 1, pages].map((i) => {
       if (i === 0) return;
       if (i === page) {
         return (
