@@ -3,11 +3,12 @@ import { useLoaderData, useParams } from "react-router-dom";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
-import Pagination from "../components/Pagination";
+// import Pagination from "../components/Pagination";
+import PaginationSimple from "../components/PaginationSimple";
 
 function Home() {
-  const { page } = useParams();
-  const [results] = useLoaderData();
+  // const { page } = useParams();
+  const [results, info] = useLoaderData();
 
   return (
     <>
@@ -19,7 +20,8 @@ function Home() {
           </Link>
         ))}
       </div>
-      <Pagination page={page} />
+      {/* <Pagination page={page} /> */}
+      <PaginationSimple info={info} />
     </>
   );
 }
