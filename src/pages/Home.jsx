@@ -27,18 +27,24 @@ function Home() {
 export default Home;
 
 export async function loader({ params }) {
-  let { page } = params;
+  try {
+    let { page } = params;
 
-  if (page < 1 || page > 42 || isNaN(page))
-    throw new Error("⚠️The page you requested doesn't exist!");
+    if (page < 1 || isNaN(page))
+      throw new Error("⚠️The page you requested doesn't exist!");
 
-  const res = await fetch(
-    `https://rickandmortyapi.com/api/character/?page=${page ? page : "1"}`
-  );
+    const res = await fetch(
+      `https://rickandmortyapi.com/api/character/?page=${page ? page : "1"}`
+    );
 
-  if (!res.ok)
-    throw new Error("⚠️Error getting characters data! Please try again 😊");
+    if (!res.ok) {
+      const { error } = await res.json();
+      throw new Error(error);
+    }
 
-  const { results, info } = await res.json();
-  return [results, info];
+    const { results, info } = await res.json();
+    return [results, info];
+  } catch (err) {
+    throw new Error(err.message);
+  }
 }
