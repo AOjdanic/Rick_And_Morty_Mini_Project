@@ -3,16 +3,17 @@ import { useLoaderData, useParams } from "react-router-dom";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
-// import Pagination from "../components/Pagination";
-import PaginationSimple from "../components/PaginationSimple";
+import Pagination from "../components/Pagination";
+// import Filters from "../components/Filters";
 
 function Home() {
-  // const { page } = useParams();
-  const [results, info] = useLoaderData();
+  const { page } = useParams();
+  const [results] = useLoaderData();
 
   return (
     <>
       <Search />
+      {/* <Filters /> */}
       <div className="grid--3-cols">
         {results.map((result) => (
           <Link to={`/character/${result.id}`} key={result.id}>
@@ -20,8 +21,7 @@ function Home() {
           </Link>
         ))}
       </div>
-      {/* <Pagination page={page} /> */}
-      <PaginationSimple info={info} />
+      <Pagination page={page} />
     </>
   );
 }
