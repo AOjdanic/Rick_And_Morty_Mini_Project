@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
-// import Filters from "../components/Filters";
+import Filters from "../components/Filters";
 
 function Home() {
   const { page } = useParams();
@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <Search />
-      {/* <Filters /> */}
+      <Filters />
       <div className="grid--3-cols">
         {results.map((result) => (
           <Link to={`/character/${result.id}`} key={result.id}>

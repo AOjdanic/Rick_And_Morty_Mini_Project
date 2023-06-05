@@ -8,6 +8,9 @@ import Home, { loader as mainLoader } from "./pages/Home";
 import Details, { loader as detailsLoader } from "./pages/Details";
 import Error from "./pages/Error";
 import CharacterSearch from "./pages/CharacterSearch";
+import FilteredCharacters, {
+  loader as filterLoader,
+} from "./pages/FilteredCharacters";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +33,11 @@ const router = createBrowserRouter([
       {
         path: "/character/search-results/:charQuery",
         element: <CharacterSearch />,
+      },
+      {
+        path: "/characters",
+        element: <FilteredCharacters />,
+        loader: filterLoader,
       },
     ],
   },
