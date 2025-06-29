@@ -5,9 +5,15 @@ import { renderMainPageContent } from "./views/main.js";
 import { renderCharactersPageContent } from "./views/characters/main.js";
 
 function createQueryParamString(paramObj) {
-  return Object.keys(paramObj)
-    .filter((key) => Boolean(paramObj[key]))
-    .map((key) => `${key}=${paramObj[key]}`)
+  const parameterObject = paramObj.page ? paramObj : { ...paramObj, page: 1 };
+
+  const paramKeys = Object.keys(parameterObject);
+
+  if (!paramKeys.length) return "";
+
+  return Object.keys(parameterObject)
+    .filter((key) => Boolean(parameterObject[key]))
+    .map((key) => `${key}=${parameterObject[key]}`)
     .join("&");
 }
 
@@ -16,22 +22,21 @@ const app = express();
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/:page", async (req, res) => {
-  const pageNumber = Number.parseInt(req.params?.page);
-  const page = Number.isNaN(pageNumber) ? 1 : pageNumber;
-
+app.get("/", async (req, res) => {
   const queryParamString = createQueryParamString(req.query);
 
+  console.log("queryParamString: ", queryParamString);
+
   const response = await fetch(
-    `https://rickandmortyapi.com/api/character?page=${page}&${queryParamString}`,
+    `https://rickandmortyapi.com/api/character${queryParamString ? `?${queryParamString}` : ""}`,
   );
 
   const data = await response.json();
   const results = data?.results ?? [];
 
-  res.send(
-    renderMainPage({ mainContent: renderMainPageContent(req, results), req }),
-  );
+  const mainContent = renderMainPageContent(req, results);
+
+  res.send(renderMainPage({ mainContent, req }));
 });
 
 app.get("/character/:id", async (req, res) => {

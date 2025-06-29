@@ -7,7 +7,7 @@ export function renderMainPageContent(req, results) {
             >
               <label>
                 <span>Species</span>
-                <select hx-push-url="true" hx-include=".search-input, this, #status, #gender"  name="species" id="species" hx-get="/1">
+                <select hx-push-url="true" hx-include=".search-input, this, #status, #gender"  name="species" id="species" hx-get="/">
                   <option ${!req.query?.species ? "selected" : ""} value="">Select a species</option>
                   <option ${req.query?.species === "human" ? "selected" : ""} value="human">Human</option>
                   <option ${req.query?.species === "alien" ? "selected" : ""} value="alien">Alien</option>
@@ -24,7 +24,7 @@ export function renderMainPageContent(req, results) {
 
               <label>
                 <span>Status</span>
-                <select hx-push-url="true" hx-include=".search-input, #species, this, #gender" hx-get="/1" name="status" id="status">
+                <select hx-push-url="true" hx-include=".search-input, #species, this, #gender" hx-get="/" name="status" id="status">
                   <option ${!req.query?.status ? "selected" : ""} value="">Select a status</option>
                   <option ${req.query?.status === "alive" ? "selected" : ""} value="alive">alive</option>
                   <option ${req.query?.status === "dead" ? "selected" : ""} value="dead">dead</option>
@@ -34,7 +34,7 @@ export function renderMainPageContent(req, results) {
 
               <label>
                 <span>Gender</span>
-                <select hx-push-url="true" hx-include=".search-input, #species, #status, this" name="gender" id="gender" hx-get="/1">
+                <select hx-push-url="true" hx-include=".search-input, #species, #status, this" name="gender" id="gender" hx-get="/">
                   <option ${!req.query.gender ? "selected" : ""} value="">Select a gender</option>
                   <option ${req.query?.gender === "female" ? "selected" : ""} value="female">female</option>
                   <option ${req.query?.gender === "male" ? "selected" : ""} value="male">male</option>
@@ -47,8 +47,8 @@ export function renderMainPageContent(req, results) {
               <div class="grid">
                 ${results
                   .map(
-                    (result) =>
-                      `<a href="/character/${result.id}">
+                    (result, index, arr) =>
+                      `<a href="/character/${result.id}" ${index === arr.length - 1 ? `hx-trigger="intersect once, threshold=1" hx-target=".grid" hx-swap="beforeend" hx-select=".grid>a" hx-get="/" hx-on="revealed: this.removeAttribute('hx-trigger')"` : ""} hx-include=".search-input, form">
                         <div class="card">
                           <div>
                             <img

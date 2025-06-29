@@ -34,7 +34,7 @@ export function renderMainPage({ mainContent, req }) {
 
         <header>
           <div class="container">
-            <a href="/1">
+            <a href="/">
               <div class="logo-image-container">
                 <img src="/rick_and_morty_logo.png" alt="rick-and-morty-logo image"/>
               </div>
@@ -53,7 +53,7 @@ export function renderMainPage({ mainContent, req }) {
                 class="search-input"
                 value="${req.query?.name ?? ""}"
                 placeholder="Search for a character"
-                hx-get="/1"
+                hx-get="/"
                 hx-trigger="keyup changed delay:500ms"
                 hx-target="div.grid"
                 hx-select="div.grid"
