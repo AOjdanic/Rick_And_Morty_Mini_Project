@@ -53,7 +53,7 @@ export function renderMainPage({ mainContent, req }) {
                 class="search-input"
                 value="${req.query?.name ?? ""}"
                 placeholder="Search for a character"
-                hx-post="/filters"
+                hx-get="/1"
                 hx-trigger="keyup changed delay:500ms"
                 hx-target="div.grid"
                 hx-select="div.grid"

@@ -46,11 +46,4 @@ app.get("/character/:id", async (req, res) => {
   );
 });
 
-app.post("/filters", async (req, res) => {
-  const searchParamsString = createQueryParamString(req.body);
-  const searchString = searchParamsString ? `?${searchParamsString}` : "";
-
-  res.redirect(`/1${searchString}`);
-});
-
 app.listen(3000);
