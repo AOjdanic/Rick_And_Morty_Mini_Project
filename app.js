@@ -37,7 +37,7 @@ app.get("/", async (req, res) => {
 
   const mainContent = renderMainPageContent(req, results, nextPage);
 
-  res.send(renderMainPage({ mainContent, req }));
+  res.send(renderMainPage({ mainContent, req, hideSearch: false }));
 });
 
 app.get("/character/:id", async (req, res) => {
@@ -48,7 +48,11 @@ app.get("/character/:id", async (req, res) => {
   const data = await response.json();
 
   res.send(
-    renderMainPage({ mainContent: renderCharactersPageContent(data), req }),
+    renderMainPage({
+      mainContent: renderCharactersPageContent(data),
+      req,
+      hideSearch: true,
+    }),
   );
 });
 
