@@ -9,7 +9,7 @@ export function renderMainPageContent(req, results) {
             >
               <label>
                 <span>Species</span>
-                <select hx-push-url="true" hx-include="this"  name="species" id="species" hx-get="/filters">
+                <select hx-push-url="true" hx-include="this"  name="species" id="species" hx-post="/filters">
                   <option ${!req.query?.species ? "selected" : ""} value="">Select a species</option>
                   <option ${req.query?.species === "human" ? "selected" : ""} value="human">Human</option>
                   <option ${req.query?.species === "alien" ? "selected" : ""} value="alien">Alien</option>
