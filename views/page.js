@@ -59,6 +59,7 @@ export function renderMainPage({ mainContent, req }) {
                 hx-select="div.grid"
                 hx-swap="outerHTML"
                 hx-push-url="true"
+                hx-include="form, this"
               />
             </div>
           </div>

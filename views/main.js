@@ -9,7 +9,7 @@ export function renderMainPageContent(req, results) {
             >
               <label>
                 <span>Species</span>
-                <select hx-push-url="true" hx-include="this"  name="species" id="species" hx-post="/filters">
+                <select hx-push-url="true" hx-include=".search-input, this"  name="species" id="species" hx-post="/filters">
                   <option ${!req.query?.species ? "selected" : ""} value="">Select a species</option>
                   <option ${req.query?.species === "human" ? "selected" : ""} value="human">Human</option>
                   <option ${req.query?.species === "alien" ? "selected" : ""} value="alien">Alien</option>
@@ -26,7 +26,7 @@ export function renderMainPageContent(req, results) {
 
               <label>
                 <span>Status</span>
-                <select hx-push-url="true" hx-include="this" hx-post="/filters" name="status" id="status">
+                <select hx-push-url="true" hx-include=".search-input, this" hx-post="/filters" name="status" id="status">
                   <option ${!req.query?.status ? "selected" : ""} value="">Select a status</option>
                   <option ${req.query?.status === "alive" ? "selected" : ""} value="alive">alive</option>
                   <option ${req.query?.status === "dead" ? "selected" : ""} value="dead">dead</option>
@@ -36,7 +36,7 @@ export function renderMainPageContent(req, results) {
 
               <label>
                 <span>Gender</span>
-                <select hx-push-url="true" hx-include="this" name="gender" id="gender" hx-post="/filters">
+                <select hx-push-url="true" hx-include=".search-input, this" name="gender" id="gender" hx-post="/filters">
                   <option ${!req.query.gender ? "selected" : ""} value="">Select a gender</option>
                   <option ${req.query?.gender === "female" ? "selected" : ""} value="female">female</option>
                   <option ${req.query?.gender === "male" ? "selected" : ""} value="male">male</option>
