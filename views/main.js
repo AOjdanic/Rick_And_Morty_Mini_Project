@@ -1,4 +1,4 @@
-export function renderMainPageContent(req, results) {
+export function renderMainPageContent(req, results, nextPage) {
   return `<main>
             <form 
               hx-target="div.grid"
@@ -48,7 +48,7 @@ export function renderMainPageContent(req, results) {
                 ${results
                   .map(
                     (result, index, arr) =>
-                      `<a href="/character/${result.id}" ${index === arr.length - 1 ? `hx-trigger="intersect once, threshold=1" hx-target=".grid" hx-swap="beforeend" hx-select=".grid>a" hx-get="/" hx-on="revealed: this.removeAttribute('hx-trigger')"` : ""} hx-include=".search-input, form">
+                      `<a href="/character/${result.id}" ${index === arr.length - 1 ? `hx-trigger="intersect once, threshold=1" hx-target=".grid" hx-swap="beforeend" hx-select=".grid>a" hx-get="/?page=${nextPage}" hx-on="revealed: this.removeAttribute('hx-trigger')"` : ""} hx-include=".search-input, form">
                         <div class="card">
                           <div>
                             <img

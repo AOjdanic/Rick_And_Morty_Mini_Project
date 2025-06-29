@@ -23,9 +23,10 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", async (req, res) => {
-  const queryParamString = createQueryParamString(req.query);
+  const page = req.query?.page ?? 1;
+  const nextPage = Number(page) + 1;
 
-  console.log("queryParamString: ", queryParamString);
+  const queryParamString = createQueryParamString(req.query);
 
   const response = await fetch(
     `https://rickandmortyapi.com/api/character${queryParamString ? `?${queryParamString}` : ""}`,
@@ -34,7 +35,7 @@ app.get("/", async (req, res) => {
   const data = await response.json();
   const results = data?.results ?? [];
 
-  const mainContent = renderMainPageContent(req, results);
+  const mainContent = renderMainPageContent(req, results, nextPage);
 
   res.send(renderMainPage({ mainContent, req }));
 });
