@@ -1,0 +1,27 @@
+package templ
+
+import models "github.com/AOjdanic/Rick_And_Morty_Mini_Project/models"
+
+templ MainCharacterContent(data models.Character) {
+	<main>
+		<div class="container">
+			<div class="details">
+				<h2>{ data.Name }</h2>
+				<div class="grid-div">
+					<div class="details-image">
+						<img src={ data.Image } alt={ "image of" + data.Name }/>
+					</div>
+					<p>Status: <span>{ data.Status }</span></p>
+					<p>Gender: <span>{ data.Gender }</span></p>
+					<p>Location: <span>{ data.Location.Name }</span></p>
+					<p>Origin: <span>{ data.Origin.Name }</span></p>
+					<p>Species: <span>{ data.Species }</span></p>
+					if data.Type=="" {
+						<p>Type: <span>{ data.Type }</span></p>
+					}
+					<p>Appears in: <span>{ len(data.Episode) } episodes</span></p>
+				</div>
+			</div>
+		</div>
+	</main>
+}

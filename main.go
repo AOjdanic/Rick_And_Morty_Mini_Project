@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"strings"
 
 	models "github.com/AOjdanic/Rick_And_Morty_Mini_Project/models"
 	templ "github.com/AOjdanic/Rick_And_Morty_Mini_Project/templ"
@@ -38,7 +39,7 @@ func main() {
 		var currentPage int
 
 		pageUrlParam := r.URL.Query().Get("page")
-		if pageUrlParam != "" {
+		if pageUrlParam == "" {
 			currentPage = 1
 		} else {
 			convertedPageParam, err := strconv.Atoi(pageUrlParam)
@@ -51,9 +52,44 @@ func main() {
 		}
 		nextPage := currentPage + 1
 
-		mainContentComponent := templ.MainTemplate(r.URL.Query().Get("species"), r.URL.Query().Get("status"), r.URL.Query().Get("gender"), data.Results, nextPage)
-		if err := templ.Page(false, mainContentComponent).Render(context.Background(), w); err != nil {
+		mainCharacterDetailsComponent := templ.MainTemplate(r.URL.Query().Get("species"), r.URL.Query().Get("status"), r.URL.Query().Get("gender"), data.Results, nextPage)
+		if err := templ.Page(false, mainCharacterDetailsComponent).Render(context.Background(), w); err != nil {
 			fmt.Println("Render error:", err)
+		}
+	})
+
+	http.HandleFunc("/character/", func(w http.ResponseWriter, r *http.Request) {
+		subPaths := strings.Split(r.URL.Path, "/")
+
+		var characterId string
+		if len(subPaths) > 0 {
+			characterId = subPaths[len(subPaths)-1]
+		}
+
+		res, err := http.Get(fmt.Sprintf("https://rickandmortyapi.com/api/character/%s", characterId))
+		if err != nil {
+			println("endpoint error: ", err)
+			return
+
+		}
+		var character models.Character
+
+		data, err := io.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println("Erorr reading the body: ", err)
+			return
+		}
+
+		if err := json.Unmarshal(data, &character); err != nil {
+			fmt.Println("Error unmarshalling: ", err.Error())
+			return
+		}
+
+		mainCharacterDetailsComponent := templ.MainCharacterContent(character)
+
+		if err := templ.Page(false, mainCharacterDetailsComponent).Render(context.Background(), w); err != nil {
+			fmt.Println("Render error:", err)
+			return
 		}
 	})
 
