@@ -1,89 +1,20 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
-	"strings"
+	"strconv"
+
+	models "github.com/AOjdanic/Rick_And_Morty_Mini_Project/models"
+	templ "github.com/AOjdanic/Rick_And_Morty_Mini_Project/templ"
 )
 
-type Origin struct {
-	Name string
-	Url  string
-}
-
-type Location struct {
-	Name string
-	Url  string
-}
-
-type Character struct {
-	Id       int
-	Name     string
-	Status   string
-	Species  string
-	Type     string
-	Gender   string
-	Origin   Origin
-	Location Location
-	Image    string
-	Episode  []string
-	Url      string
-	Created  string
-}
-
-type Info struct {
-	Count int
-	Pages int
-	Next  string
-	Prev  string
-}
-
-type RNMResponse struct {
-	Results []Character
-	Info    Info
-}
-
-func createQueryParamString(query url.Values) string {
-	if len(query) == 0 {
-		return "?page=1"
-	}
-
-	var queryStringArray []string
-
-	for key, value := range query {
-		if value[0] != "" {
-			queryStringArray = append(queryStringArray, fmt.Sprintf("%s=%s", key, value[0]))
-		}
-	}
-
-	if query["page"] == nil {
-		queryStringArray = append(queryStringArray, "page=1")
-	}
-
-	var queryParamString string
-
-	if len(queryStringArray) > 1 {
-		fmt.Println(queryStringArray)
-		queryParamString = strings.Join(queryStringArray, "&")
-	} else {
-		queryParamString = queryStringArray[0]
-	}
-
-	queryParamString = "?" + queryParamString
-
-	return queryParamString
-}
-
 func main() {
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		queryParamString := createQueryParamString(request.URL.Query())
-
-		res, err := http.Get(fmt.Sprintf("https://rickandmortyapi.com/api/character%s", queryParamString))
-
-		fmt.Println(fmt.Sprintf("https://rickandmortyapi.com/api/character%s", queryParamString))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		res, err := http.Get(fmt.Sprintf("https://rickandmortyapi.com/api/character?%s", r.URL.RawQuery))
 		if err != nil {
 			fmt.Println("error during fetch: ", err)
 			return
@@ -95,18 +26,37 @@ func main() {
 			return
 		}
 
-		fmt.Println(string(body))
+		defer res.Body.Close()
 
-		var data RNMResponse
+		var data models.RNMResponse
 
 		if err := json.Unmarshal(body, &data); err != nil {
 			fmt.Println("Error unmarshalling: ", err)
 			return
 		}
 
-		writer.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(writer).Encode(data)
+		var currentPage int
+
+		pageUrlParam := r.URL.Query().Get("page")
+		if pageUrlParam != "" {
+			currentPage = 1
+		} else {
+			convertedPageParam, err := strconv.Atoi(pageUrlParam)
+
+			if err != nil {
+				currentPage = 1
+			} else {
+				currentPage = convertedPageParam
+			}
+		}
+		nextPage := currentPage + 1
+
+		mainContentComponent := templ.MainTemplate(r.URL.Query().Get("species"), r.URL.Query().Get("status"), r.URL.Query().Get("gender"), data.Results, nextPage)
+		if err := templ.Page(false, mainContentComponent).Render(context.Background(), w); err != nil {
+			fmt.Println("Render error:", err)
+		}
 	})
 
+	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 	http.ListenAndServe(":3000", nil)
 }
