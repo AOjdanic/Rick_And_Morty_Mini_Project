@@ -87,7 +87,7 @@ func main() {
 
 		mainCharacterDetailsComponent := templ.MainCharacterContent(character)
 
-		if err := templ.Page(false, mainCharacterDetailsComponent).Render(context.Background(), w); err != nil {
+		if err := templ.Page(true, mainCharacterDetailsComponent).Render(context.Background(), w); err != nil {
 			fmt.Println("Render error:", err)
 			return
 		}
