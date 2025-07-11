@@ -79,7 +79,7 @@ func main() {
 			})
 		}
 
-		Payload := types.ContentInfo{
+		content := types.ContentInfo{
 			NextPage:   nextPage,
 			Characters: characters,
 			Gender:     c.QueryParam("gender"),
@@ -87,7 +87,7 @@ func main() {
 			Species:    c.QueryParam("species"),
 		}
 
-		return c.Render(200, "homepage.html", Payload)
+		return c.Render(200, "homepage.html", content)
 	})
 
 	e.GET("/character/:id", func(c echo.Context) error {
