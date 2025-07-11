@@ -1,44 +1,58 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"net/http"
 	"strconv"
-	"strings"
 
-	models "github.com/AOjdanic/Rick_And_Morty_Mini_Project/models"
-	templ "github.com/AOjdanic/Rick_And_Morty_Mini_Project/templ"
+	"github.com/AOjdanic/Rick_And_Morty_Mini_Project/types"
+	"github.com/labstack/echo/v4"
 )
 
+type Template struct {
+	template *template.Template
+}
+
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.template.ExecuteTemplate(w, name, data)
+}
+
+func newTemplate() *Template {
+	return &Template{
+		template: template.Must(template.ParseGlob("views/*.html")),
+	}
+}
+
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		res, err := http.Get(fmt.Sprintf("https://rickandmortyapi.com/api/character?%s", r.URL.RawQuery))
+	e := echo.New()
+
+	e.Renderer = newTemplate()
+
+	e.GET("/", func(c echo.Context) error {
+		res, err := http.Get(fmt.Sprintf("https://rickandmortyapi.com/api/character?%s", c.Request().URL.RawQuery))
 		if err != nil {
-			fmt.Println("error during fetch: ", err)
-			return
+			return err
 		}
 
 		body, err := io.ReadAll(res.Body)
 		if err != nil {
-			fmt.Println("Error reading body: ", err)
-			return
+			return err
 		}
 
 		defer res.Body.Close()
 
-		var data models.RNMResponse
+		var data types.RNMResponse
 
 		if err := json.Unmarshal(body, &data); err != nil {
-			fmt.Println("Error unmarshalling: ", err)
-			return
+			return err
 		}
 
 		var currentPage int
 
-		pageUrlParam := r.URL.Query().Get("page")
+		pageUrlParam := c.QueryParam("page")
 		if pageUrlParam == "" {
 			currentPage = 1
 		} else {
@@ -52,47 +66,53 @@ func main() {
 		}
 		nextPage := currentPage + 1
 
-		mainCharacterDetailsComponent := templ.MainTemplate(r.URL.Query().Get("species"), r.URL.Query().Get("status"), r.URL.Query().Get("gender"), data.Results, nextPage)
-		if err := templ.Page(false, mainCharacterDetailsComponent).Render(context.Background(), w); err != nil {
-			fmt.Println("Render error:", err)
+		var characters []types.CharacterInfo
+		for index, character := range data.Results {
+			isLast := index == len(data.Results)-1
+
+			characters = append(characters, types.CharacterInfo{
+				Id:       character.Id,
+				Name:     character.Name,
+				Image:    character.Image,
+				Location: character.Location,
+				IsLast:   isLast,
+			})
 		}
+
+		Payload := types.ContentInfo{
+			NextPage:   nextPage,
+			Characters: characters,
+			Gender:     c.QueryParam("gender"),
+			Status:     c.QueryParam("status"),
+			Species:    c.QueryParam("species"),
+		}
+
+		return c.Render(200, "homepage.html", Payload)
 	})
 
-	http.HandleFunc("/character/", func(w http.ResponseWriter, r *http.Request) {
-		subPaths := strings.Split(r.URL.Path, "/")
-
-		var characterId string
-		if len(subPaths) > 0 {
-			characterId = subPaths[len(subPaths)-1]
-		}
+	e.GET("/character/:id", func(c echo.Context) error {
+		characterId := c.Param("id")
 
 		res, err := http.Get(fmt.Sprintf("https://rickandmortyapi.com/api/character/%s", characterId))
 		if err != nil {
-			println("endpoint error: ", err)
-			return
-
+			return err
 		}
-		var character models.Character
+		var character types.Character
 
 		data, err := io.ReadAll(res.Body)
 		if err != nil {
-			fmt.Println("Erorr reading the body: ", err)
-			return
+			return err
 		}
+
+		defer res.Body.Close()
 
 		if err := json.Unmarshal(data, &character); err != nil {
-			fmt.Println("Error unmarshalling: ", err.Error())
-			return
+			return err
 		}
 
-		mainCharacterDetailsComponent := templ.MainCharacterContent(character)
-
-		if err := templ.Page(true, mainCharacterDetailsComponent).Render(context.Background(), w); err != nil {
-			fmt.Println("Render error:", err)
-			return
-		}
+		return c.Render(200, "info.html", character)
 	})
 
-	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
-	http.ListenAndServe(":3000", nil)
+	e.Static("public", "public")
+	e.Start(":3000")
 }

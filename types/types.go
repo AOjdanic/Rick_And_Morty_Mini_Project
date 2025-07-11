@@ -1,4 +1,4 @@
-package models
+package types
 
 type Origin struct {
 	Name string
@@ -23,6 +23,26 @@ type Character struct {
 	Episode  []string
 	Url      string
 	Created  string
+}
+
+type CharacterInfo struct {
+	Id       int
+	Name     string
+	Status   string
+	Species  string
+	Type     string
+	Gender   string
+	Location Location
+	Image    string
+	IsLast   bool
+}
+
+type ContentInfo struct {
+	Characters []CharacterInfo
+	NextPage   int
+	Species    string
+	Status     string
+	Gender     string
 }
 
 type Info struct {
