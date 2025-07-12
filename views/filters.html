@@ -1,4 +1,5 @@
 {{block "filters" .}}
+<div class="container">
   <form hx-target="div.grid" hx-select="div.grid" hx-swap="outerHTML">
     <select
       hx-push-url="true"
@@ -71,4 +72,5 @@
       </option>
     </select>
   </form>
+</div>
 {{end}}

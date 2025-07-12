@@ -32,6 +32,10 @@ header {
   background-color: var(--brand-gray);
   border-bottom: 1px solid #444;
   margin-bottom: 6rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
 }
 
 main {
@@ -46,6 +50,10 @@ footer {
   align-items: center;
   justify-content: center;
   border-top: 1px solid #444;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .footer-text {
@@ -75,6 +83,16 @@ img {
   max-width: 1280px;
   align-items: center;
   justify-content: space-between;
+
+  &:has(form) {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .grid {
@@ -84,6 +102,11 @@ img {
   align-self: center;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 300px);
+}
+
+.card-img-wrapper {
+  height: 75%;
+  position: relative;
 }
 
 .card {
@@ -101,25 +124,25 @@ a:has(.card) {
 }
 
 a:has(.card):hover .card {
-  transform: rotate(15deg);
-  transition: transform 0.2s ease-out;
-  box-shadow: 0 0 10px 10px gold;
+  @media screen and (min-width: 1024px) {
+    transform: rotate(15deg);
+    transition: transform 0.2s ease-out;
+    box-shadow: 0 0 10px 10px gold;
+  }
 }
 
 .name {
-  font-size: 3rem;
+  padding: 6px 10px;
+  font-size: 2.4rem;
   color: var(--brand-gray-light);
-  @media screen and (max-width: 390px) {
-    font-size: 2.4rem;
-  }
+  color: gold;
+  margin-bottom: 20px;
 }
 
 .location {
-  font-size: 2.4rem;
+  padding: 6px 10px;
+  font-size: 1.6rem;
   color: var(--brand-gray-light);
-  @media screen and (max-width: 390px) {
-    font-size: 2rem;
-  }
 }
 
 .details-image {
@@ -163,4 +186,27 @@ a:has(.card):hover .card {
   height: 2rem;
   width: 2rem;
   aspect-ratio: 1/1;
+}
+
+form {
+  gap: 20px;
+  display: flex;
+  margin-inline: auto;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 939px) {
+    flex-direction: column;
+  }
+
+  @media screen and (min-width: 1260px) {
+    justify-content: space-around;
+    margin-inline: 0;
+  }
+}
+
+select {
+  width: 300px;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
 }

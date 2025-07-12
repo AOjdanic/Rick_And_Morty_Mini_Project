@@ -17,7 +17,11 @@ func main() {
 		endpointUrl := fmt.Sprintf("https://rickandmortyapi.com/api/character?%s", c.Request().URL.RawQuery)
 		data, err := api.FetchData[types.RNMResponse](endpointUrl, c)
 		if err != nil {
-			return c.Render(404, "error.html", nil)
+			return c.Render(200, "error.html", nil)
+		}
+
+		if data == nil {
+			return c.Render(200, "error.html", nil)
 		}
 
 		return c.Render(200, "homepage.html", template.GenerateTemplateContent(*data, c))
@@ -27,7 +31,7 @@ func main() {
 		endpointUrl := fmt.Sprintf("https://rickandmortyapi.com/api/character/%s", c.Param("id"))
 		character, err := api.FetchData[types.Character](endpointUrl, c)
 		if err != nil {
-			return c.Render(404, "error.html", nil)
+			return c.Render(200, "error.html", nil)
 		}
 
 		return c.Render(200, "info.html", character)
