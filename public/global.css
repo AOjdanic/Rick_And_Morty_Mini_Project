@@ -1,0 +1,212 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  --brand-gray: #2d2d2d;
+  --brand-gray-light: #d2d2d2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  display: flex;
+  font-size: 62.5%;
+}
+
+body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--brand-gray);
+}
+
+header {
+  display: flex;
+  padding: 2rem 4rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--brand-gray);
+  border-bottom: 1px solid #444;
+  margin-bottom: 6rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+main {
+  flex: 1;
+  display: flex;
+  margin-bottom: 6rem;
+  flex-direction: column;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #444;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.footer-text {
+  color: gold;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.logo-image-container {
+  display: flex;
+  aspect-ratio: 4/1;
+  height: 50px;
+}
+
+img {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  max-width: 1280px;
+  align-items: center;
+  justify-content: space-between;
+
+  &:has(form) {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.grid {
+  gap: 2rem;
+  width: 100%;
+  display: grid;
+  align-self: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 300px);
+}
+
+.card-img-wrapper {
+  height: 75%;
+  position: relative;
+}
+
+.card {
+  position: relative;
+  max-width: 32rem;
+  aspect-ratio: 2/3;
+  background-color: var(--brand-gray);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid #444;
+}
+
+a:has(.card) {
+  text-decoration: none;
+}
+
+a:has(.card):hover .card {
+  @media screen and (min-width: 1024px) {
+    transform: rotate(15deg);
+    transition: transform 0.2s ease-out;
+    box-shadow: 0 0 10px 10px gold;
+  }
+}
+
+.name {
+  padding: 6px 10px;
+  font-size: 2.4rem;
+  color: var(--brand-gray-light);
+  color: gold;
+  margin-bottom: 20px;
+}
+
+.location {
+  padding: 6px 10px;
+  font-size: 1.6rem;
+  color: var(--brand-gray-light);
+}
+
+.details-image {
+  width: 200px;
+  aspect-ratio: 16/9;
+  color: var(--brand-gray-light);
+}
+
+.search-input-wrapper {
+  display: flex;
+  position: relative;
+  border-radius: 1rem;
+  width: 30rem;
+  height: 3rem;
+  overflow: hidden;
+  background-color: #fff;
+  align-items: center;
+  padding-inline: 6px;
+}
+
+.search-input-wrapper:hover,
+.search-input-wrapper:focus-within {
+  outline: 4px solid gold;
+
+  & .search-input-icon {
+    fill: gold;
+  }
+}
+
+.search-input {
+  border: none;
+  height: 100%;
+  width: 100%;
+  outline: none;
+  display: flex;
+  font-size: 1.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.search-input-icon {
+  height: 2rem;
+  width: 2rem;
+  aspect-ratio: 1/1;
+}
+
+form {
+  gap: 20px;
+  display: flex;
+  margin-inline: auto;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 939px) {
+    flex-direction: column;
+  }
+
+  @media screen and (min-width: 1260px) {
+    justify-content: space-around;
+    margin-inline: 0;
+  }
+}
+
+select {
+  width: 300px;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}

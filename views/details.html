@@ -1,0 +1,23 @@
+{{block "details" .}}
+<main>
+  <div class="container">
+    <div class="details">
+      <h2>{{ .Name }}</h2>
+      <div class="grid-div">
+        <div class="details-image">
+          <img src="{{.Image }}" alt="image of {{.Name}}" />
+        </div>
+        <p>Status: <span>{{ .Status }}</span></p>
+        <p>Gender: <span>{{.Gender}}</span></p>
+        <p>Location: <span>{{ .Location.Name }}</span></p>
+        <p>Origin: <span>{{ .Origin.Name }}</span></p>
+        <p>Species: <span>{{ .Species }}</span></p>
+        {{if ne .Type ""}}
+        <p>Type: <span>{{ .Type }}</span></p>
+        {{end}}
+        <p>Appears in: <span>{{ len .Episode }} episodes</span></p>
+      </div>
+    </div>
+  </div>
+</main>
+{{end}}

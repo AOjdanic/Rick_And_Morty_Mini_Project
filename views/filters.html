@@ -1,0 +1,76 @@
+{{block "filters" .}}
+<div class="container">
+  <form hx-target="div.grid" hx-select="div.grid" hx-swap="outerHTML">
+    <select
+      hx-push-url="true"
+      hx-include=".search-input, this, #status, #gender"
+      name="species"
+      id="species"
+      hx-get="/"
+    >
+      <option value="" {{if eq .Species "" }}selected {{end}}>
+        Select a species
+      </option>
+      <option value="human" {{if eq .Species "human" }}selected {{end}}>Human</option>
+      <option value="alien" {{if eq .Species "alien" }}selected {{end}}>Alien</option>
+      <option value="humanoid" {{if eq .Species "humanoid" }}selected {{end}} >
+        Humanoid
+      </option>
+      <option value="unknown" {{if eq .Species "unknown" }}selected {{end}}>
+        Unknown
+      </option>
+      <option value="poopybutthole" {{if eq .Species "poopybutthole" }}selected {{end}}>
+        Poopybutthole
+      </option>
+      <option value="mythological" {{if eq .Species "mythological" }}selected {{end}}>
+        Mythological Creature
+      </option>
+      <option value="animal" {{if eq .Species "animal" }}selected {{end}}>
+        Animal
+      </option>
+      <option value="robot" {{if eq .Species "robot" }}selected {{end}} >Robot</option>
+      <option value="cronenberg" {{if eq .Species "cronenberg" }}selected {{end}}>
+        Cronenberg
+      </option>
+      <option value="disease" {{if eq .Species "disease" }}selected {{end}}>
+        Disease
+      </option>
+    </select>
+    <select
+      hx-push-url="true"
+      hx-include=".search-input, #species, this, #gender"
+      hx-get="/"
+      name="status"
+      id="status"
+    >
+      <option value="" {{if eq .Status "" }}selected {{end}} >Select a status</option>
+      <option value="alive" {{if eq .Status "alive" }}selected {{end}} >Alive</option>
+      <option value="dead" {{if eq .Status "dead" }}selected {{end}} >Dead</option>
+      <option value="unknown" {{if eq .Status "unknown" }}selected {{end}}>
+        Unknown
+      </option>
+    </select>
+    <select
+      hx-push-url="true"
+      hx-include=".search-input, #species, #status, this"
+      name="gender"
+      id="gender"
+      hx-get="/"
+    >
+      <option value="" {{if eq .Gender "" }}selected {{end}}>
+        Select a gender
+      </option>
+      <option value="female" {{if eq .Gender "female"}}selected {{end}} >
+        Female
+      </option>
+      <option value="male" {{if eq .Gender "male"}}selected {{end}}>Male</option>
+      <option value="genderless" {{if eq .Gender "genderless"}}selected {{end}}>
+        Genderless
+      </option>
+      <option value="unknown"  {{if eq .Gender "unknown"}}selected {{end}}>
+        Unknown
+      </option>
+    </select>
+  </form>
+</div>
+{{end}}
