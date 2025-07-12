@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -13,13 +14,24 @@ func FetchData[T any](endpoint string, c echo.Context) (*T, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	defer res.Body.Close()
+	if res.StatusCode < 200 || res.StatusCode >= 300 {
+		var apiErr struct {
+			Error string `json:"error"`
+		}
+
+		if err := json.Unmarshal(body, &apiErr); err == nil && apiErr.Error != "" {
+			return nil, err
+		}
+
+		return nil, err
+	}
 
 	var data T
 
