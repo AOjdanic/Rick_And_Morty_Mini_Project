@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/AOjdanic/Rick_And_Morty_Mini_Project/api"
 	"github.com/AOjdanic/Rick_And_Morty_Mini_Project/template"
@@ -34,5 +35,10 @@ func main() {
 	})
 
 	e.Static("public", "public")
-	e.Start(":3000")
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+	e.Start(":" + port)
 }
