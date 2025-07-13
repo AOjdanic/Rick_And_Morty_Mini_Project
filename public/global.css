@@ -104,6 +104,7 @@ img {
   grid-template-columns: repeat(auto-fit, 300px);
 }
 
+/* card */
 .card-img-wrapper {
   height: 75%;
   position: relative;
@@ -132,10 +133,9 @@ a:has(.card):hover .card {
 }
 
 .name {
+  color: gold;
   padding: 6px 10px;
   font-size: 2.4rem;
-  color: var(--brand-gray-light);
-  color: gold;
   margin-bottom: 20px;
 }
 
@@ -151,16 +151,17 @@ a:has(.card):hover .card {
   color: var(--brand-gray-light);
 }
 
+/* search input*/
 .search-input-wrapper {
   display: flex;
   position: relative;
   border-radius: 1rem;
   width: 30rem;
-  height: 3rem;
+  height: 4rem;
   overflow: hidden;
   background-color: #fff;
   align-items: center;
-  padding-inline: 6px;
+  padding-inline: 10px 16px;
 }
 
 .search-input-wrapper:hover,
@@ -205,8 +206,65 @@ form {
   }
 }
 
-select {
+/* select */
+.custom-select {
   width: 300px;
+  cursor: pointer;
+  user-select: none;
   border-radius: 4px;
-  padding: 0.5rem 1rem;
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.custom-select-display {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.custom-select-icon {
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 5px;
+  margin: 20px;
+  position: absolute;
+  background-color: #000;
+  transform: translateY(-50%);
+  clip-path: polygon(0% 0%, 50% 100%, 100% 0%, 85% 0%, 50% 80%, 15% 0%);
+}
+
+.custom-options {
+  left: 0;
+  right: 0;
+  top: 110%;
+  z-index: 1;
+  display: none;
+  border-top: none;
+  overflow-y: auto;
+  max-height: 200px;
+  position: absolute;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.custom-select.open .custom-options {
+  display: block;
+}
+
+.custom-option {
+  cursor: pointer;
+  padding: 10px 16px;
+}
+
+.custom-option:hover {
+  color: white;
+  background-color: gold;
+}
+
+input[type="hidden"] {
+  display: none;
 }

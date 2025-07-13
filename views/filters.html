@@ -1,76 +1,186 @@
 {{block "filters" .}}
 <div class="container">
   <form hx-target="div.grid" hx-select="div.grid" hx-swap="outerHTML">
-    <select
-      hx-push-url="true"
-      hx-include=".search-input, this, #status, #gender"
-      name="species"
-      id="species"
-      hx-get="/"
-    >
-      <option value="" {{if eq .Species "" }}selected {{end}}>
-        Select a species
-      </option>
-      <option value="human" {{if eq .Species "human" }}selected {{end}}>Human</option>
-      <option value="alien" {{if eq .Species "alien" }}selected {{end}}>Alien</option>
-      <option value="humanoid" {{if eq .Species "humanoid" }}selected {{end}} >
-        Humanoid
-      </option>
-      <option value="unknown" {{if eq .Species "unknown" }}selected {{end}}>
-        Unknown
-      </option>
-      <option value="poopybutthole" {{if eq .Species "poopybutthole" }}selected {{end}}>
-        Poopybutthole
-      </option>
-      <option value="mythological" {{if eq .Species "mythological" }}selected {{end}}>
-        Mythological Creature
-      </option>
-      <option value="animal" {{if eq .Species "animal" }}selected {{end}}>
-        Animal
-      </option>
-      <option value="robot" {{if eq .Species "robot" }}selected {{end}} >Robot</option>
-      <option value="cronenberg" {{if eq .Species "cronenberg" }}selected {{end}}>
-        Cronenberg
-      </option>
-      <option value="disease" {{if eq .Species "disease" }}selected {{end}}>
-        Disease
-      </option>
-    </select>
-    <select
-      hx-push-url="true"
-      hx-include=".search-input, #species, this, #gender"
-      hx-get="/"
-      name="status"
-      id="status"
-    >
-      <option value="" {{if eq .Status "" }}selected {{end}} >Select a status</option>
-      <option value="alive" {{if eq .Status "alive" }}selected {{end}} >Alive</option>
-      <option value="dead" {{if eq .Status "dead" }}selected {{end}} >Dead</option>
-      <option value="unknown" {{if eq .Status "unknown" }}selected {{end}}>
-        Unknown
-      </option>
-    </select>
-    <select
-      hx-push-url="true"
-      hx-include=".search-input, #species, #status, this"
-      name="gender"
-      id="gender"
-      hx-get="/"
-    >
-      <option value="" {{if eq .Gender "" }}selected {{end}}>
-        Select a gender
-      </option>
-      <option value="female" {{if eq .Gender "female"}}selected {{end}} >
-        Female
-      </option>
-      <option value="male" {{if eq .Gender "male"}}selected {{end}}>Male</option>
-      <option value="genderless" {{if eq .Gender "genderless"}}selected {{end}}>
-        Genderless
-      </option>
-      <option value="unknown"  {{if eq .Gender "unknown"}}selected {{end}}>
-        Unknown
-      </option>
-    </select>
+     <div
+        class="custom-select"
+        id="species-custom-select"
+      >
+        <div class="custom-select-icon"></div>
+        <div class="custom-select-display" onclick="toggleSelect(this)">
+          Select a species
+        </div>
+        <div class="custom-options">
+          <div class="custom-option"
+            onclick="selectOption(this, '')" 
+            {{if eq .Species "" }}selected {{end}}>
+            Select a species
+          </div>
+          <div class="custom-option"
+            onclick="selectOption(this, 'human')"
+            {{if eq .Species "human" }}selected {{end}}>
+            Human
+          </div>
+          <div 
+            class="custom-option"
+            onclick="selectOption(this,'alien')"
+            {{if eq .Species "alien" }}selected {{end}}>
+            Alien
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'humanoid')"
+            {{if eq .Species "humanoid" }}selected {{end}}>
+            Humanoid
+          </div>
+          <div 
+            class="custom-option"
+            onclick="selectOption(this,'alien')"
+            {{if eq .Species "unknown" }}selected {{end}}>
+            Unknown
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'poopybutthole')"
+            {{if eq .Species "poopybutthole" }}selected {{end}}>
+            Poopybutthole
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'mythological')"
+            {{if eq .Species "mythological" }}selected {{end}}>
+            Mythological Creature
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'animal')"
+            {{if eq .Species "animal" }}selected {{end}}>
+            Animal
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'robot')"
+            {{if eq .Species "robot" }}selected {{end}}>
+            Robot
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'cronenberg')" 
+            {{if eq .Species "cronenberg" }}selected {{end}}>
+            Cronenberg
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'disease')"
+            {{if eq .Species "disease" }}selected {{end}}>
+            Disease
+          </div>
+      </div>
+      <input
+        id="species"
+        hx-get="/" 
+        hx-push-url="true"
+        hx-include=".search-input, this, #status, #gender" 
+        type="hidden"
+        name="species"
+        hx-trigger="change"
+        value=""
+      />
+    </div>
+
+     <div
+      class="custom-select"
+      id="status-custom-select"
+      >
+        <div class="custom-select-icon"></div>
+        <div class="custom-select-display" onclick="toggleSelect(this)">
+          Select a status
+        </div>
+        <div class="custom-options">
+          <div class="custom-option"
+            onclick="selectOption(this, '')" 
+            {{if eq .Status "" }}selected {{end}}>
+            Select a status
+          </div>
+          <div class="custom-option"
+            onclick="selectOption(this, 'alive')"
+            {{if eq .Status "alive" }}selected {{end}}>
+            Alive
+          </div>
+          <div 
+            class="custom-option"
+            onclick="selectOption(this,'dead')"
+            {{if eq .Status "dead" }}selected {{end}}>
+          Dead
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'unknown')"
+            {{if eq .Status "unknown" }}selected {{end}}>
+            Unknown
+          </div>
+      </div>
+      <input
+        id="status"
+        hx-get="/" 
+        hx-push-url="true"
+        hx-include=".search-input, #species, this, #gender" 
+        type="hidden"
+        name="status"
+        hx-trigger="change"
+        value=""
+      />
+    </div>
+
+
+     <div
+      class="custom-select"
+      id="gender-custom-select"
+      >
+        <div class="custom-select-icon"></div>
+        <div class="custom-select-display" onclick="toggleSelect(this)">
+          Select a gender
+        </div>
+        <div class="custom-options">
+          <div class="custom-option"
+            onclick="selectOption(this, '')" 
+            {{if eq .Gender "" }}selected {{end}}>
+            Select a gender
+          </div>
+          <div class="custom-option"
+            onclick="selectOption(this, 'female')"
+            {{if eq .Gender "female" }}selected {{end}}>
+            Female
+          </div>
+          <div 
+            class="custom-option"
+            onclick="selectOption(this,'male')"
+            {{if eq .Gender "male" }}selected {{end}}>
+          Male
+          </div>
+          <div 
+            class="custom-option"
+            onclick="selectOption(this,'genderless')"
+            {{if eq .Gender "genderless" }}selected {{end}}>
+          Genderless
+          </div>
+          <div
+            class="custom-option"
+            onclick="selectOption(this,'unknown')"
+            {{if eq .Gender "unknown" }}selected {{end}}>
+            Unknown
+          </div>
+      </div>
+      <input
+        id="gender"
+        hx-get="/" 
+        hx-push-url="true"
+        hx-include=".search-input, #species, #status, this" 
+        type="hidden"
+        name="gender"
+        hx-trigger="change"
+        value=""
+      />
+    </div>
   </form>
 </div>
 {{end}}
