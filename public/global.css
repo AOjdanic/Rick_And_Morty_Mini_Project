@@ -369,3 +369,28 @@ input[type="hidden"] {
   font-weight: 700;
   padding: 6px 10px;
 }
+
+.container:has(#no-results) {
+  flex: 1;
+}
+#no-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-title {
+  color: gold;
+  font-size: 30px;
+  text-align: center;
+}
+
+.error-image {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 768px;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}

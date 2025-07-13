@@ -16,11 +16,7 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		endpointUrl := fmt.Sprintf("https://rickandmortyapi.com/api/character?%s", c.Request().URL.RawQuery)
 		data, err := api.FetchData[types.RNMResponse](endpointUrl, c)
-		if err != nil {
-			return c.Render(200, "error.html", nil)
-		}
-
-		if data == nil {
+		if data == nil || err != nil {
 			return c.Render(200, "error.html", nil)
 		}
 
