@@ -268,3 +268,104 @@ form {
 input[type="hidden"] {
   display: none;
 }
+
+/*details*/
+
+.details-container {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  max-width: 1280px;
+  align-items: center;
+  padding-inline: 10px;
+  justify-content: center;
+  color: var(--brand-gray-light);
+
+  @media screen and (max-width: 640px) {
+    max-width: 300px;
+  }
+}
+
+.details-card {
+  width: 600px;
+  height: 220px;
+  display: flex;
+  margin: 0 auto;
+  overflow: hidden;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid #444;
+  background-color: var(--brand-gray);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    height: initial;
+    flex-direction: column;
+  }
+}
+
+.details-card-image-wrapper {
+  flex: 1;
+  display: flex;
+
+  img {
+    display: block;
+    min-width: 300px;
+  }
+}
+
+.details-card-name {
+  color: gold;
+  padding: 6px 10px;
+  font-size: 2.4rem;
+}
+
+.details-card-content {
+  flex: 1;
+  gap: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+}
+
+.details-card-status {
+  margin-top: -10px;
+  gap: 10px;
+  display: flex;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 10px;
+  align-items: center;
+}
+
+.details-card-status-icon {
+  height: 10px;
+  display: block;
+  background: #444;
+  aspect-ratio: 1/1;
+  border-radius: 100px;
+}
+
+.details-card-location-section {
+  gap: 5px;
+  display: flex;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 10px;
+  flex-direction: column;
+}
+
+.details-card-text-gray {
+  color: #888;
+}
+
+.details-card-episodes-section {
+  display: flex;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 10px;
+}
